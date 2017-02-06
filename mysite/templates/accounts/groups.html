@@ -1,0 +1,36 @@
+{% extends "admin_base.html" %}
+{% block title %}用户组{% endblock %}
+
+{% block main %}
+
+<div class="row">
+    
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>No.</th>
+                <th>分组名称</th>
+                <th>动作</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for group in groups %}
+            <tr id="group-{{ group.id }}">
+                <td>{{ forloop.counter }}</td>
+                <td><a href="{% url 'accounts:group' group.id %}">{{ group.name }}</td>
+                <td>
+                    <a href="#"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> </a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="7">暂无分组</td></tr>
+        {% endfor %}     
+        </tbody>
+    </table>
+
+
+    <!-- </div> -->
+    <!-- <div class="col-md-2">.col-md-2</div> -->
+</div>
+{% endblock %}
+

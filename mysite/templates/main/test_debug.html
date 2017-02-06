@@ -1,0 +1,11 @@
+{% load staticfiles %}
+
+{% if 1 > 0 %}
+    <ul>
+    {% for i in lis %}
+        <a href="{% url 'main:test'%}">如果没问题，那说明应该是静态文件的问题</a>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}

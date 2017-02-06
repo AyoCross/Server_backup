@@ -1,0 +1,76 @@
+{% extends "admin_base.html" %}
+{% block title %}Users{% endblock %}
+
+{% block main %}
+{% load bootstrap3 %}
+<div class="row">
+    <div class="col-md-10">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>No.</th>
+                <th>用户名</th>
+                <th>邮箱</th>
+                <th>是否激活</th>
+                <th>上次登陆</th>
+                <th>创建日期</th>
+                <th>动作</th>
+            </tr>
+    </thead>
+    <tbody>
+    {% for user in users %}
+        <tr id="user-{{ user.id }}">
+            <td>{{ forloop.counter }}</td>
+            <td><a href="{% url 'accounts:user' user.id %}">{{ user.username }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.is_active }}</td>
+            <td>{{ user.last_login|date:"M d, Y" }}</td>
+            <td>{{ user.date_joined|date:"M d, Y" }}</td>
+            <td>
+                <a href="{% url 'accounts:user_edit' user.id %}"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> </a>
+                &nbsp
+                <a href="#"  class="del-user"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> </a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="7">No user yet</td></tr>
+    {% endfor %}     
+    </tbody>
+    </table>
+
+    {% bootstrap_pagination users %}
+
+    </div>
+    <div class="col-md-2">
+        <!-- <h4>Filter By Group</h4> -->
+        <p><strong>分组显示</strong></p>
+        <hr>
+        <div class="list-group">
+          <a href="{% url 'accounts:users' %}" class="list-group-item group-list {% if all %}active{% endif %}">所有用户</a>
+          {% for group in groups %}
+            <a href="{% url 'accounts:group_users' group.id %}" class="list-group-item group-list {% if group_id == group.id %}active{% endif %}">{{ group.name }}</a>
+          {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript">
+$('.del-user').on('click', function (event) {
+    // var answer = confirm("Delete post?");
+    // return answer;
+    var url = $(this).attr('href');
+
+    bootbox.confirm("确认删除用户?", function(result) {
+      if(result){
+        $.get(url, function(){
+            location.reload();
+        });
+        }
+
+    });
+    return false;
+  });
+</script>
+{% endblock %}

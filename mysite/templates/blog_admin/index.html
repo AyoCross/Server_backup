@@ -1,0 +1,82 @@
+{% extends 'admin_base.html' %}
+{% block title %}Admin主页 {% endblock %}
+
+{%block main %}
+
+<div class="col-md-8 col-md-offset-2">
+    <div class="row">
+        <h3>
+            博客基本数据 &nbsp;
+            {% if perms.main.change_blogmeta %}
+            <small><a href="{% url 'main:admin_blog_meta' %}"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> </a></small>
+            {% endif %}
+        </h3>
+        <hr>
+        <dl class="dl-horizontal">
+            <dt>博客名称:</dt>
+            <dd>{{ site_info.title }}</dd>
+        </dl>
+        <dl class="dl-horizontal">
+            <dt>子标题:</dt>
+            <dd>{{ site_info.subtitle }}</dd>
+        </dl>
+        <dl class="dl-horizontal">
+            <dt>总体描述:</dt>
+            <dd>{{ site_info.desc }}</dd>
+        </dl>
+        <dl class="dl-horizontal">
+            <dt>Owner:</dt>
+            <dd>{{ site_info.author }}</dd>
+        </dl>
+        <dl class="dl-horizontal">
+            <dt>Keywords:</dt>
+            <dd>{{ site_info.keywords }}</dd>
+        </dl>
+    </div>
+    <div class="row">
+        <h3>
+            用户描述 &nbsp;
+            <small><a href="{% url 'accounts:profile' %}"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> </a></small>
+        </h3>
+        <hr>
+        <dl class="dl-horizontal">
+            <dt>用户名:</dt>
+            <dd>{{account_info.username}}</dd>
+        </dl>
+        <dl class="dl-horizontal">
+            <dt>昵称:</dt>
+            <dd>{{account_info.display_name}}</dd>
+        </dl>
+        <dl class="dl-horizontal">
+            <dt>个人简介:</dt>
+            <dd>{{account_info.biography}}</dd>
+        </dl>
+        <dl class="dl-horizontal">
+            <dt>社交帐号:</dt>
+            <dd>
+                {% if account_info.github %}
+                    <a href='{{ account_info.github }}'><i class="fa fa-github fa-lg"></i></a>
+                {% endif %}
+
+                {% if account_info.zhihu %}
+                    <a href='{{ account_info.twitter }}'><i class="fa fa-twitter fa-lg"></i></a>
+                {% endif %}
+
+                {% if account_info.weibo %}
+                    <a href='{{ account_info.weibo }}'><i class="fa fa-weibo fa-lg"></i></a>
+                {% endif %}
+
+            </dd>
+        </dl>
+        <dl class="dl-horizontal">
+            <dt>个人主页:</dt>
+            <dd>
+                {% if account_info.homepage %}
+                <a href="{{ account_info.homepage }}"><i class="fa fa-home fa-lg"></i></a> {{ account_info.homepage }}
+                {% endif %}
+            </dd>
+        </dl>
+    </div>
+</div>
+
+{% endblock %}

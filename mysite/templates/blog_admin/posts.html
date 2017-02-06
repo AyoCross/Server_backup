@@ -1,0 +1,68 @@
+{% extends "admin_base.html" %}
+{% block title %}Posts{% endblock %}
+
+{% block main %}
+{% load bootstrap3 %}
+<div class="row">
+    <!-- <div class="col-md-10"> -->
+    <!-- <h1>New Post</h1> -->
+    
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>No.</th>
+                <th>标题</th>
+                <th>摘要</th>
+                <th>作者</th>
+                <th>发表时间</th>
+                <th>最后一次更改时间</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for post in posts %}
+            <tr id="post-{{ post.id }}">
+                <td>{{ forloop.counter }}</td>
+                <td><a href="{% url 'main:post' post.id %}" target="_blank">{{ post.title }}</td>
+                <td>{{ post.abstract }}</td>
+                <td>{{ post.author.account.display_name }}</td>
+                <td>{{ post.pub_time }}</td>
+                <td>{{ post.update_time }}</td>
+                <td>
+                    <a href="{% url 'main:admin_edit_post' post.id %}"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> </a>
+                    &nbsp
+                    <a href="{% url 'main:admin_delete_post' post.id %}"  class="del-post"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> </a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="7" style="text-align: left">暂无博文！</td></tr>
+            {% endfor %}      
+        </tbody>
+    </table>
+
+    {% bootstrap_pagination posts %}
+
+    <!-- </div> -->
+    <!-- <div class="col-md-2">.col-md-2</div> -->
+</div>
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript">
+$('.del-post').on('click', function (event) {
+    // var answer = confirm("Delete post?");
+    // return answer;
+    var url = $(this).attr('href');
+
+    bootbox.confirm("Are you sure?", function(result) {
+      if(result){
+        $.get(url, function(){
+            location.reload();
+        });
+        }
+
+    });
+    return false;
+  });
+</script>
+{% endblock %}

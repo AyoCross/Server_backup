@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% block title %} {{post.title}} {% endblock %}
+
+{% load static %}
+{% block header %}
+<header class="intro-header" style="background-image: url(http://odsyl85o5.bkt.clouddn.com/%E5%A7%9C%E6%88%8802.jpg)">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>{{post.title}}</h1>
+                        <!-- <h2 class="subheading">Problems look mighty small from 150 miles up</h2> -->
+                        <span class="meta">作者: <a href="{% url 'main:author' post.author.id %}">{{post.author.account.display_name}}</a> 发表于 {{post.pub_time}}</span>
+
+                        <span class="meta">类别:
+                        {% if post.category %}
+                            <a href="{% url 'main:index' %}?category={{post.category.id}}">{{post.category.name}}</a>
+                        {% else %}
+                            None
+                        {% endif %}
+                        </span>
+
+                        <span class="meta">标签:
+                        {% for tag in tags %}
+                            <a href="{% url 'main:index' %}?tag={{tag.id}}">{{tag.name}}</a>{% if not forloop.last%},  {% else %}{% endif %} 
+                        {% empty %}
+                            空
+                        {% endfor %}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+{% endblock %}
+
+{% block main %}
+<div class="container">
+    <article>
+        <!-- <div class="container"> -->
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    {{post.content_html|safe}}
+                </div>
+            </div>
+            
+            
+        <!-- </div> -->
+    </article>
+
+    <br>
+
+
+    <hr>
+
+
+
+    <article>
+        <!-- <div class="container"> -->
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    {{ comment_script }}
+                </div>
+            </div>
+        <!-- </div> -->
+    </article>
+
+</div>
+
+{% endblock %}
+<!--
+{% block js %}
+
+<script type="text/javascript">
+    // $('#btn_donate').on('click', function(event){
+    //     $('#donate_guide').removeClass('hidden');
+    //     // $(this).attr('id', 'btn_donate_hidden');
+    //     return false
+    // });
+    $('#btn_donate').on('click', function(event){
+        if($('#donate_guide').hasClass('hidden'))
+            $('#donate_guide').removeClass('hidden');
+        else
+            $('#donate_guide').addClass('hidden');
+        return false
+    })
+    
+</script>
+
+{% endblock %}-->

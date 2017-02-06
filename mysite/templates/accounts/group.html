@@ -1,0 +1,63 @@
+{% extends 'admin_base.html' %}
+
+{% block main %}
+<div class="row">
+  <div class="col-md-9">
+    <div class="row">
+        <h4>分组详情 &nbsp; 
+            <small><a href="#"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> </a></small>
+        </h4>
+        <hr>
+        <p><label>名称</label>: {{ group.name }}</p>
+    </div>
+    <div class="row">
+        <h4>用户</h4>
+        <hr>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>用户名</th>
+                    <th>邮箱</th>
+                    <th>是否激活</th>
+                    <th>上次登陆</th>
+                    <th>创建日期</th>
+                    <th style="text-align:center">移出该组</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for user in users %}
+                <tr id="user-{{ user.id }}">
+                    <td>{{ forloop.counter }}</td>
+                    <td><a href="{% url 'accounts:user' user.id %}">{{ user.username }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.is_active }}</td>
+                    <td>{{ user.last_login|date:"M d, Y" }}</td>
+                    <td>{{ user.date_joined|date:"M d, Y" }}</td>
+                    <td style="text-align:center">
+                        <!-- <a href="{% url 'accounts:user_edit' user.id %}"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> </a>
+                        &nbsp -->
+                        <a href="#"  class="remove-user"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span> </a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="7">No user yet</td></tr>
+            {% endfor %}     
+            </tbody>
+        </table>
+    </div>
+  </div>
+    <div class="col-md-2 col-md-offset-1">
+    <h4>权限</h4>
+    <hr>
+    <ul class="list-group">
+        {% for permission in permissions %}
+            <li class="list-group-item group-list">{{ permission.name }}</li>
+        {% empty %}
+            <p>无相关权限!</p>
+        {% endfor %}
+    </ul>
+  </div>
+
+</div>
+{% endblock %}

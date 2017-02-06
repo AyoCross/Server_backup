@@ -1,0 +1,119 @@
+{% extends "admin_base.html" %}
+{% block title %}Admin Tags{% endblock %}
+
+{% block main %}
+{% load bootstrap3 %}
+
+<div class="row">
+    <!-- <div class="col-md-10 col-md-offset-1"> -->
+    <form class="form-inline" method="POST" >
+    {% csrf_token %}                
+                
+        {% bootstrap_form form %}        
+
+        <button type="submit" class="btn btn-primary" name="publish" value="publish">Create</button>
+        <em>(Seperate tags with ",")</em>
+    </form>
+    <!-- </div> -->
+        
+
+
+</div>
+
+<hr>
+
+<div class="row">
+    <!-- <div class="col-md-10"> -->
+    <!-- <h1>New Post</h1> -->
+    
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>No.</th>
+                <th>name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for tag in tags %}
+            <tr id="post-{{ tag.id }}">
+                <td>{{ forloop.counter }}</td>
+                <td><a href="{% url 'main:admin_filter_posts' %}?tag={{ tag.id }}">{{ tag.name }}</a></td>
+                <td>
+                    <a href="{% url 'main:admin_edit_tag' tag.id %}" class="edit-tag" data-name={{ tag.name }}><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> </a>
+                    &nbsp
+                    <a href="{% url 'main:admin_delete_tag' tag.id %}" class="del-tag" data-id={{ tag.id }} ><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {% bootstrap_pagination tags %}
+
+    <!-- </div> -->
+    <!-- <div class="col-md-2">.col-md-2</div> -->
+</div>
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript">
+$('.del-tag').on('click', function (event) {
+    // var answer = confirm("Delete post?");
+    // return answer;
+    id = $(this).data('id')
+    var url = $(this).attr('href');
+    bootbox.confirm("Are you sure?", function(result) {
+        if(result){
+            // $.ajax({
+            //     url: url,
+            //     type: 'DELETE',
+            //     crossDomain: false,
+            //     beforeSend: function(xhr){
+            //         xhr.setRequestHeader("Authorization",
+            //             "Basic " + btoa('gevin' + ":" + 'gevin'));
+            //     },
+
+            //     success: function(result) {
+            //         location.reload();
+            //     }
+            // });
+            $.ajax({
+                url: url,
+                type: 'GET',
+                success: function(result){
+                    location.reload();
+                }
+            });
+        }
+
+    });
+    return false;
+  });
+
+$('.edit-tag').on('click', function (event){
+    var url = $(this).attr('href');
+    var name = $(this).data('name')
+    bootbox.prompt({
+        title: "Update tag",
+        value: name,
+        callback: function(result) {
+            if (result === null) {
+              return;
+            } else {
+              $.ajax({
+                url:url,
+                type: 'GET',
+                data: {'name': result},
+                success: function(result2){
+                    location.reload();
+                }
+              });
+            }
+        }
+    });
+    return false;
+});
+
+</script>
+{% endblock %}
