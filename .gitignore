@@ -6,9 +6,6 @@ ehthumbs.db
 Desktop.ini
 
 # Server files
-/mysite/
-.ini
-.sqlite3
 
 
 # Recycle Bin used on file shares
