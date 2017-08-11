@@ -26,9 +26,6 @@ PER_PAGE = settings.MY_SITE['PER_PAGE']
 PER_PAGE_ADMIN = settings.MY_SITE['PER_PAGE_ADMIN']
 
 
-
-
-
 def get_site_meta():
     seo = {}
     try:
@@ -736,7 +733,7 @@ def filter_posts_by_category(pk):
     return posts
 
 
-# In MayBlog's permission system, if you can change tags,
+# In permission system, if you can change tags,
 # you can also change categories
 
 
@@ -766,7 +763,7 @@ def simple_update(request, pk, flag=None):
     return HttpResponse('Succeed to update {0}'.format(flag))
 
 
-# In MayBlog's permission system, if you can delete tags,
+# In permission system, if you can delete tags,
 # you can also delete categories
 
 

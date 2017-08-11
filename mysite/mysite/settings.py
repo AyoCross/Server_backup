@@ -23,9 +23,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
 
-ALLOWED_HOSTS = ['.ayocross.com','.ayocross.com.',] # 
+DEBUG = True
+
+ALLOWED_HOSTS = ['52.221.156.87', ]  #
 
 
 # Application definition
@@ -90,8 +91,14 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'myblog',    ## 数据库名称
+        'USER': 'root',
+        'PASSWORD': 'Alcatel@123',    ## 安装 mysql 数据库时，输入的 root 用户的密码
+        'HOST': '127.0.0.1',
+
     }
 }
 

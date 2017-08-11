@@ -60,16 +60,16 @@ FEED_NUM = settings.MY_SITE['RSS_NUM']
 # class LatestEntriesFeed(Feed):
 #     feed_type = Atom1Feed
 
-#     # title = "MayBlog"
+#     # title = "MyBlog"
 #     # link = "/"
-#     description = "MayBlog Rss"
+#     description = "MyBlog Rss"
 
 #     def get_object(self, request, pk):
 #         # return get_object_or_404(Post, pk=id)
 #         return Post.objects.get(pk=pk)
 
 #     def title(self, obj):
-#         return "MayBlog: %s posts" % obj.title
+#         return "MyBlog: %s posts" % obj.title
 
 #     def link(self, item):
 #         return reverse('main:post', args=[item.pk])

@@ -94,14 +94,6 @@ class BlogInitView(View):
             initialization.flag = True
             initialization.save()
 
-            # Blog meta data
-            # obj, created = models.BlogMeta.objects.get_or_create(key='blog_name', defaults={'value':'MayBlog'})
-            # obj, created = models.BlogMeta.objects.get_or_create(key='blog_subtitle', defaults={'value':'Welcome to MayBlog'})
-            # obj, created = models.BlogMeta.objects.get_or_create(key='blog_desc', defaults={'value':'desc'})
-            # obj, created = models.BlogMeta.objects.get_or_create(key='owner', defaults={'value':'MayBlog'})
-            # obj, created = models.BlogMeta.objects.get_or_create(key='keywords', defaults={'value':'MayBlog'})
-            # obj, created = models.BlogMeta.objects.get_or_create(key='google_verify', defaults={'value':''})
-            # obj, created = models.BlogMeta.objects.get_or_create(key='baidu_verify', defaults={'value':''})
             init_blog_meta()
 
             msg = 'Successfully Initialized'
@@ -124,11 +116,11 @@ class ReInitBlogMetaView(View):
 
 
 def init_blog_meta():
-    obj, created = models.BlogMeta.objects.get_or_create(key='blog_name', defaults={'value': 'MayBlog'})
-    obj, created = models.BlogMeta.objects.get_or_create(key='blog_subtitle', defaults={'value': 'Welcome to MayBlog'})
-    obj, created = models.BlogMeta.objects.get_or_create(key='blog_desc', defaults={'value': 'desc'})
-    obj, created = models.BlogMeta.objects.get_or_create(key='owner', defaults={'value': 'MayBlog'})
-    obj, created = models.BlogMeta.objects.get_or_create(key='keywords', defaults={'value': 'MayBlog'})
+    obj, created = models.BlogMeta.objects.get_or_create(key='blog_name', defaults={'value': u'心有猛虎, 细嗅蔷薇'})
+    obj, created = models.BlogMeta.objects.get_or_create(key='blog_subtitle', defaults={'value': ''})
+    obj, created = models.BlogMeta.objects.get_or_create(key='blog_desc', defaults={'value': u'学习django'})
+    obj, created = models.BlogMeta.objects.get_or_create(key='owner', defaults={'value': 'AyoCross'})
+    obj, created = models.BlogMeta.objects.get_or_create(key='keywords', defaults={'value': 'HardWorking'})
     obj, created = models.BlogMeta.objects.get_or_create(key='google_verify', defaults={'value': ''})
     obj, created = models.BlogMeta.objects.get_or_create(key='baidu_verify', defaults={'value': ''})
 
